@@ -1,0 +1,5 @@
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Common\bin\Release\CorpChat.Common.dll
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Common\bin\Release\CorpChat.Common.pdb
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Common\obj\Release\CorpChat.Common.dll
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Common\obj\Release\CorpChat.Common.pdb
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Common\obj\Release\CorpChat.Common.csprojAssemblyReference.cache

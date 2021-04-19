@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "HasError";
+}
+
+        @{
+            Exception ex = null;
+
+            if (TempData["LastError"] != null)
+            {
+                ex = TempData["LastError"] as Exception;
+            }
+        }
+
+        <div class="container" style="margin-top:150px">
+            <div class="bd-example">
+                <div class="jumbotron">
+                    <h1 class="display-4">Hata Oluştu</h1>
+                    <hr class="my-4">
+                    <p>
+                        Hata oluştu, lütfen site yöneticisi ile iletişime geçiniz.
+                    </p>
+                    <a href="/Home/Index" class="btn btn-primary btn-lg " role="button" aria-pressed="true">Ana Sayfaya Git!</a>
+                    <a href="mailto:abdullahdarcin01@gmail.com" class="btn btn-secondary btn-lg " role="button" aria-pressed="true">E-Posta Gönder</a>
+                </div>
+            </div>
+        </div>

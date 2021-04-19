@@ -1,0 +1,4 @@
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Core\bin\Release\CorpChat.Core.dll
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Core\bin\Release\CorpChat.Core.pdb
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Core\obj\Release\CorpChat.Core.dll
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Core\obj\Release\CorpChat.Core.pdb

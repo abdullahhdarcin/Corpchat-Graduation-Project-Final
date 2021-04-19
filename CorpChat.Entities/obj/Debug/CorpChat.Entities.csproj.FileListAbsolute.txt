@@ -1,0 +1,6 @@
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Entities\obj\Debug\CorpChat.Entities.csprojAssemblyReference.cache
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Entities\bin\Debug\CorpChat.Entities.dll
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Entities\bin\Debug\CorpChat.Entities.pdb
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Entities\obj\Debug\CorpChat.Entities.dll
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Entities\obj\Debug\CorpChat.Entities.pdb
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Entities\obj\Debug\CorpChat.Entities.csproj.CoreCompileInputs.cache

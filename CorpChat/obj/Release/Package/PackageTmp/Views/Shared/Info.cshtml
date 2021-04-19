@@ -1,0 +1,27 @@
+﻿@using CorpChat.ViewModels
+@model InfoViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<meta http-equiv="refresh" content="10;url=Index" />
+<link href="~/Content/login-register.css" rel="stylesheet" />
+
+
+<div class="container" style="margin-top:150px">
+    <div class="bd-example">
+        <div class="jumbotron">
+            <h1 class="display-4">@Model.Header</h1>
+            <p class="lead">@Model.Title</p>
+            <hr class="my-4">
+            <p>
+                @foreach (string msg in Model.Items)
+                {
+                    @msg<br>
+                }
+            </p>
+            <a class="btn btn-primary btn-lg" href="/Home/Index" role="button">Anasayfa</a>
+        </div>
+    </div>
+</div>

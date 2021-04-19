@@ -1,0 +1,120 @@
+﻿@using CorpChat
+@using CorpChat.Entities
+@using CorpChat.Models
+
+<!doctype html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="~/Scripts/jquery-2.0.0.min.js"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    @*<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/cd2b2380a7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!--Navbar-->
+    <div class="bd-example">
+        <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/Home/Index"><img src="~/Images/corpchat-logo.png" alt="Avatar" class="image" style="width:175px; height:35px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Home/Index">Anasayfa <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    @if (CurrentSession.User != null)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Odalar
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Admin Odaları</a>
+                                <a class="dropdown-item" href="#">Yönetici Odaları</a>
+                                <a class="dropdown-item" href="#">Yetkili Odaları</a>
+                                <a class="dropdown-item" href="#">Kullanıcı Odaları</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link " href="/Room/Create" tabindex="-1" aria-disabled="true">Oda Ekle</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link " href="/Room/Index" tabindex="-1" aria-disabled="true">Odalarım</a>
+                        </li>
+
+                        @*@if (CurrentSession.User.IsAdmin)
+                        {*@
+                            <li class="nav-item">
+                                <a class="nav-link " href="/CorpChatUser/Index" tabindex="-1" aria-disabled="true">Kullanıcılarım</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link " href="/CorpChatUser/Create" tabindex="-1" aria-disabled="true">Kullanıcı Ekle</a>
+                            </li>
+                        //}
+
+                    }
+
+
+                </ul>
+                <ul class="nav navbar-nav nav-right">
+                    @if (CurrentSession.User == null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Register">Üye Ol</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Login">Giriş Yap</a>
+                        </li>
+
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/Home/ShowProfile" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @CurrentSession.User.Username
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/Home/ShowProfile"><i class="fas fa-users"></i> &nbspProfil</a>
+                                <a class="dropdown-item" href="/Home/EditProfile"><i class="fas fa-edit"></i> &nbspDüzenle</a>
+                                <a class="dropdown-item" href="/Ticket/Index"><i class="fas fa-ticket-alt"></i>&nbsp&nbspTicketlerım</a>
+                                <a class="dropdown-item" href="@Url.Action("DeleteProfile")" onclick="return confirm('Hesabınızı Silmek İstediğinize Emin misiniz ?');"><i class="fas fa-trash-alt"></i>&nbsp&nbsp Profilimi Sil</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Logout">Çıkış Yap</a>
+                        </li>
+                    }
+
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+   
+
+   @RenderSection("footer", required: false)
+
+</body>
+</html>

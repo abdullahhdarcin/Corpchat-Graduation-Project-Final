@@ -1,0 +1,6 @@
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Core\bin\Debug\CorpChat.Core.dll
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Core\bin\Debug\CorpChat.Core.pdb
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Core\obj\Debug\CorpChat.Core.csprojAssemblyReference.cache
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Core\obj\Debug\CorpChat.Core.dll
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Core\obj\Debug\CorpChat.Core.pdb
+C:\Users\abdul\source\repos\CorpChat\CorpChat.Core\obj\Debug\CorpChat.Core.csproj.CoreCompileInputs.cache

@@ -1,0 +1,66 @@
+﻿@using CorpChat.Entities
+@model IEnumerable<Ticket>
+@using CorpChat.Models
+
+@{
+    CorpChatUser user = null;
+    if (Session["login"] != null)
+    {
+        user = Session["login"] as CorpChatUser;
+    }
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container pt-5">
+    <p>
+        @Html.ActionLink("Yeni Ticket", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSolved)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketUsername)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketDetail)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsSolved)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketUsername)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketDetail, new { @maxlength = 10 })
+        </td>
+        @if (CurrentSession.User.IsAdmin)
+        {
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm " })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+            </td>
+        }
+        else
+        {
+            <td>
+                @Html.ActionLink("Detay", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+            </td>
+        }
+
+    </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,320 @@
+﻿@using CorpChat.Entities
+@using CorpChat.Models
+@model List<Room>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    CorpChatUser user = null;
+    if (Session["login"] != null)
+    {
+        user = Session["login"] as CorpChatUser;
+    }
+}
+@*<script src="~/Scripts/jquery-2.0.0.min.js"></script>*@
+@*<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>*@
+
+@*<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>*@
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>*@
+
+@*<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>*@
+
+@*<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>*@
+
+<style>
+    .image {
+  opacity: 0.5;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.card-body1:hover .image {
+  opacity: 1;
+}
+
+.card-body1:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  color: black;
+  font-size: 16px;
+  padding: 10px 25px;
+}
+</style>
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Kategoriler -->
+
+
+
+        @if (user != null)
+        {
+            @Html.Partial("_PartialCategories")
+            <div id="room-container" class="row pb-3" style="margin-left:auto; margin-right:auto;">
+
+                @foreach (Room room in Model)
+                {
+                    <div class="col-md-3">
+                        <div class="bd-example">
+                            <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-9" style="position: relative; top: 5px;">
+                                            @if (string.IsNullOrEmpty(room.Title) == false && room.Title.Length > 15)
+                                            {
+                                                <p>@(room.Title.Substring(0, 15) + "...")</p>
+
+                                            }
+                                            else
+                                            {
+                                                <p>@room.Title</p>
+                                            }
+                                        </div>
+                                        <div class="col-md-3">
+                                            @if (CurrentSession.User.IsAdmin && (room.IsAdmin || room.IsKullanici || room.IsYetkili || room.IsYonetici))
+                                            {
+                                                <small class="text-muted" style="position: relative; top: 5px;">
+                                                    <a href="/Room/GetRoom/@room.Id" class="btn btn-success btn-lg btn-sm" role="button" aria-pressed="true"
+                                                       data-toggle="modal" data-target="#modal_comment" data-room-id="@room.Id">Katıl</a>
+                                                </small>
+
+                                            }
+                                            else if (CurrentSession.User.IsYonetici && (room.IsKullanici || room.IsYetkili || room.IsYonetici))
+                                            {
+                                                <small class="text-muted" style="position: relative; top: 5px;">
+                                                    <a href="/Room/GetRoom/@room.Id" class="btn btn-success btn-lg btn-sm" role="button" aria-pressed="true"
+                                                       data-toggle="modal" data-target="#modal_comment" data-room-id="@room.Id">Katıl</a>
+                                                </small>
+
+                                            }
+                                            else if (CurrentSession.User.IsYetkili && (room.IsKullanici || room.IsYetkili))
+                                            {
+                                                <small class="text-muted" style="position: relative; top: 5px;">
+                                                    <a href="/Room/GetRoom/@room.Id" class="btn btn-success btn-lg btn-sm" role="button" aria-pressed="true"
+                                                       data-toggle="modal" data-target="#modal_comment" data-room-id="@room.Id">Katıl</a>
+                                                </small>
+                                            }
+                                            else if (CurrentSession.User.IsKullanici && room.IsKullanici)
+                                            {
+                                                <small class="text-muted" style="position: relative; top: 5px;">
+                                                    <a href="/Room/GetRoom/@room.Id" class="btn btn-success btn-lg btn-sm" role="button" aria-pressed="true"
+                                                       data-toggle="modal" data-target="#modal_comment" data-room-id="@room.Id">Katıl</a>
+                                                </small>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body1">
+                                    <img src="~/Images/chat-room.jpg" alt="Avatar" class="image" style="width:100%">
+                                    <div class="middle">
+                                        <div class="text"><img src="~/Images/plus-flat.png" alt="Avatar" class="image"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        }
+        else
+        {
+            <div class="modal" tabindex="-1" role="dialog" id="myModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><img src="~/Images/logo-corpchat.png" alt="..." style="height:40px;"/></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Selam ! En güzel vakitler seninle olsun.</strong></p><br />
+                            <p style="float:right;"><strong>Corpchat Yönetimi</strong></p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                $('#myModal').modal('show')
+            </script>
+
+            <div class="container">
+                <div class="jumbotron jumbotron-fluid" style="background-color:white;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="~/Images/person_2.jpg" style="width:350px; height:300px; " />
+                            </div>
+                            <div class="col-md-8">
+                                <img src="~/Images/logo-corpchat.png" />
+                                <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent. his is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                                <div>
+                                    <a href="/Home/About" class="btn btn-info btn-lg btn-sm" role="button" aria-pressed="true">Biz Kimiz ?</a>
+                                    <a href="/Home/Contact" class="btn btn-info btn-lg btn-sm" role="button" aria-pressed="true">İletişim</a>
+                                    <a href="/Home/Register" class="btn btn-info btn-lg btn-sm" role="button" aria-pressed="true">Sık Sorulan Sorular</a>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+@section footer{
+    @Html.Partial("_PartialFooter")
+}
+
+@Bootstrap.ModalPopup(id: "modal_comment", title: "")
+
+<script>
+    var noteid = -1;
+    var modalCommentBodyId = "#modal_comment_body";
+
+    $(function () {
+        $('#modal_comment').on('shown.bs.modal', function (e) {
+
+            var btn = $(e.relatedTarget);
+            roomid = btn.data("room-id");
+
+            $("#modal_comment_body").load("/ChatMessage/Chat/" + roomid);
+
+            //jQuery.get("ChatMessage/Chat/?id=" + roomid, function (data) {
+            //    $("#modal_comment_body").html(data);
+            //});
+            
+            setInterval(function () {
+                $("#refresh_messages").load("/ChatMessage/RefreshMessage/" + roomid);
+            }, 3000)
+
+        })
+    });
+
+    
+
+    function doComment(btn, e, commentid, spanid) {
+
+        var button = $(btn);
+        var mode = button.data("edit-mode");
+
+        if (e === "edit_clicked") {
+            if (!mode) {
+                button.data("edit-mode", true);
+                button.removeClass("btn-warning");
+                button.addClass("btn-success");
+                var btnSpan = button.find("span");
+                btnSpan.removeClass("glyphicon-edit");
+                btnSpan.addClass("glyphicon-ok");
+
+                $(spanid).addClass("editable");
+                $(spanid).attr("contenteditable", true);
+                $(spanid).focus();
+            }
+            else {
+                button.data("edit-mode", false);
+                button.addClass("btn-warning");
+                button.removeClass("btn-success");
+                var btnSpan = button.find("span");
+                btnSpan.addClass("glyphicon-edit");
+                btnSpan.removeClass("glyphicon-ok");
+
+                $(spanid).removeClass("editable");
+                $(spanid).attr("contenteditable", false);
+
+                var txt = $(spanid).text();
+
+                $.ajax({
+                    method: "POST",
+                    url: "/ChatMessage/Edit/" + commentid,
+                    data: { text: txt }
+                }).done(function (data) {
+
+                    if (data.result) {
+                        // yorumlar partial tekrar yüklenir..
+                        $(modalCommentBodyId).load("/ChatMessage/Chat/" + roomid);
+                    }
+                    else {
+                        alert("Yorum güncellenemedi.");
+                    }
+
+                }).fail(function () {
+                    alert("Sunucu ile bağlantı kurulamadı.");
+                });
+            }
+
+        }
+        else if (e === "delete_clicked") {
+            var dialog_res = confirm("Yorum silinsin mi?");
+            if (!dialog_res) return false;
+
+            $.ajax({
+                method: "GET",
+                url: "/ChatMessage/Delete/" + commentid
+            }).done(function (data) {
+
+                if (data.result) {
+                    // yorumlar partial tekrar yüklenir..
+                    $(modalCommentBodyId).load("/ChatMessage/Chat/" + roomid);
+                } else {
+                    alert("Yorum silinemedi.");
+                }
+
+            }).fail(function () {
+                alert("Sunucu ile bağlantı kurulamadı.");
+            });
+
+        } else if (e === "new_clicked") {
+
+            var txt = $("#new_comment_text").val();
+
+            $.ajax({
+                method: "POST",
+                url: "/ChatMessage/Create",
+                data: { "Messages": txt, "roomid": roomid }
+            }).done(function (data) {
+
+                if (data.result) {
+                    // yorumlar partial tekrar yüklenir..
+                    $(modalCommentBodyId).load("/ChatMessage/Chat/" + roomid);
+                } else {
+                    alert("Yorum eklenemedi.");
+                }
+
+            }).fail(function () {
+                alert("Sunucu ile bağlantı kurulamadı.");
+            });
+
+        }
+
+    }
+    
+</script>

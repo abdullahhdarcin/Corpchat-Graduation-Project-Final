@@ -1,0 +1,63 @@
+﻿@using CorpChat.Entities
+@model CorpChatUser
+
+
+@{
+    ViewBag.Title = "Profiliniz";
+}
+<script src="https://kit.fontawesome.com/cd2b2380a7.js" crossorigin="anonymous"></script>
+<link href="~/Content/ProfileDropdownButton.css" rel="stylesheet" />
+
+<div class="container">
+
+    
+       <h2 class="pt-5">@ViewBag.Title</h2>
+        
+    <hr />
+
+    <div class="row pt-2">
+
+        <div class="col-md-2">
+            <img src="~/Images/@Model.ProfileImageFilename" class="img-circle" width="128" height="155" style="border-radius:30%" />
+        </div>
+
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>@(Model.Name + " " + Model.Surname)</h3>
+                    <br />
+                    <h5><b>@Html.DisplayNameFor(model => model.Username) : </b>@Model.Username</h5>
+                    <h5><b>@Html.DisplayNameFor(model => model.Email) : </b>@Model.Email</h5>
+                    <br />
+                </div>
+
+                <div class="col-md-2">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-cog"></i>  Daha Fazla
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#"><i class="fas fa-info-circle"></i> Tüm Bilgiler</a>
+                            <a class="dropdown-item" href="/Home/EditProfile"><i class="fas fa-edit"></i> Düzenle</a>
+                            <a class="dropdown-item" href="@Url.Action("DeleteProfile")" onclick="return confirm('Hesabınızı Silmek İstediğinize Emin misiniz ?');"><i class="fas fa-trash-alt"></i>&nbspSil</a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ticket-alt"></i>  Ticketlarım
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/Ticket/Create"><i class="fas fa-plus-square"></i> Yeni Ticket Oluştur</a>
+                            <a class="dropdown-item" href="/Ticket/Index"><i class="fas fa-ticket-alt"></i> Ticketlarım</a>
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+    </div>
+</div>

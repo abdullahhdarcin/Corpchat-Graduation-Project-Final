@@ -1,0 +1,22 @@
+﻿@using CorpChat.Entities
+@using CorpChat.Models
+
+@model List<ChatMessage>
+
+
+<div class="msg_history scroll" >
+    @foreach (ChatMessage item in Model)
+    {
+        <div class="incoming_msg">
+            <div class="incoming_msg_img"> <img src="~/Images/@item.Owner.ProfileImageFilename" alt="sunil"> </div>
+            <div class="received_msg">
+                <div class="received_withd_msg" style="word-wrap:break-word;" id="refresh_messages">
+                    <p>
+                        @item.Messages
+                    </p>
+                    <span class="time_date">@item.ModifiedOn</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
